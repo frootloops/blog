@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="As a data driven company, it’s essential that we understand how our users work the app in order to improve their experience. In this blog, I’m going to explain how we extract and use analytical data f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to extract analytics data from your iOS application">
+<meta property="og:url" content="https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/index.html">
+<meta property="og:site_name" content="Swift by Arsen">
+<meta property="og:description" content="As a data driven company, it’s essential that we understand how our users work the app in order to improve their experience. In this blog, I’m going to explain how we extract and use analytical data f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://miro.medium.com/max/1400/1*5AT76efFGNNcIIE_mNU2rg.jpeg">
+<meta property="article:published_time" content="2017-09-25T09:40:12.000Z">
+<meta property="article:modified_time" content="2022-07-12T13:48:48.379Z">
+<meta property="article:author" content="Arsen Gasparian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://miro.medium.com/max/1400/1*5AT76efFGNNcIIE_mNU2rg.jpeg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>How to extract analytics data from your iOS application</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/how-to-write-crystal-clear-code/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&text=How to extract analytics data from your iOS application"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&is_video=false&description=How to extract analytics data from your iOS application"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How to extract analytics data from your iOS application&body=Check out this article: https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&name=How to extract analytics data from your iOS application&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&t=How to extract analytics data from your iOS application"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Implementation"><span class="toc-number">1.</span> <span class="toc-text">Implementation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Usage"><span class="toc-number">2.</span> <span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus-%E2%80%94-Testability"><span class="toc-number">3.</span> <span class="toc-text">Bonus — Testability</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">4.</span> <span class="toc-text">Conclusion</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        How to extract analytics data from your iOS application
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Arsen Gasparian</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-09-25T09:40:12.000Z" itemprop="datePublished">2017-09-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>As a data driven company, it’s essential that we understand how our users work the app in order to improve their experience. In this blog, I’m going to explain how we extract and use analytical data from the iOS version of the app.</p>
+<p><img src="https://miro.medium.com/max/1400/1*5AT76efFGNNcIIE_mNU2rg.jpeg"></p>
+<p>Here at Revolut, we use two main platforms (Google Analytics and Amplitude) to aggregate insights from a multitude of data points. Today, we’re going to show you how to create an expandable, reliable and testable solution for mobile analytics.</p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p>We start by defining a protocol for tracking events that can occur in our application. Let’s call it <strong>TrackingEventType</strong>.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">TrackingEventType</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> identifier: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">var</span> properties: [<span class="type">String</span>: <span class="keyword">Any</span>] &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This protocol has two attributes: A unique <strong>identifier</strong>, used to differentiate one event from another and <strong>properties</strong>, which we use to share data with the analytics platforms.</p>
+<p>Next, we create an enum where each case represents a single event.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">UserEvents</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> created(user: <span class="type">User</span>)</span><br><span class="line">    <span class="keyword">case</span> openApp</span><br><span class="line">    <span class="keyword">case</span> bought(product: <span class="type">Product</span>)</span><br><span class="line">    <span class="keyword">case</span> sentMessage</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We now have to implement <strong>TrackingEventType</strong> to set up the relationship between each case and its identifiers and properties.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">UserEvents</span>: <span class="title class_">TrackingEventType</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> identifier: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .created:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;user.created&quot;</span></span><br><span class="line">        <span class="keyword">case</span> .openApp:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;user.open-app&quot;</span></span><br><span class="line">        <span class="keyword">case</span> .bought:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;user.bought&quot;</span></span><br><span class="line">        <span class="keyword">case</span> .sentMessage:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;user.sent-message&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> properties: [<span class="type">String</span>: <span class="keyword">Any</span>] &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="keyword">let</span> .created(user):</span><br><span class="line">            <span class="keyword">return</span> [<span class="string">&quot;name&quot;</span>: user.name, <span class="string">&quot;age&quot;</span>: user.age]</span><br><span class="line">        <span class="keyword">case</span> <span class="keyword">let</span> .bought(product):</span><br><span class="line">            <span class="keyword">return</span> [<span class="string">&quot;title&quot;</span>: product.title, <span class="string">&quot;price&quot;</span>: product.price]</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> [:]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Great, so now we know what events to track but we don’t know how to actually track them. We need to define one or more providers; Provider is a class that represents an analytics system such as Google Analytics or Amplitude. Let’s have a look at a protocol that all providers must conform to:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">TrackingProviderType</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">track</span>(<span class="params">event</span>: <span class="type">TrackingEventType</span>)</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">associate</span>(<span class="params">with</span> <span class="params">user</span>: <span class="type">User</span>)</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">disassociateUser</span>()</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">setup</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>A provider does 4 things:</p>
+<ul>
+<li>Sets itself up to track events</li>
+<li>Accepts events and is actively tracks them</li>
+<li>Associates tracking sessions with a given user</li>
+<li>Disassociates tracking session from a user</li>
+</ul>
+<p>In our case, since we use both GA and Amplitude, we need to create separate providers for each analytics system. For tracking events in Amplitude, we create <strong>AmplitudeProvider</strong>. Let’s take a look at the implementation.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">AmplitudeProvider</span>: <span class="title class_">TrackingProviderType</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> amplitude <span class="operator">=</span> <span class="type">Amplitude</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">setup</span>() &#123;</span><br><span class="line">        amplitude.initializeApiKey(<span class="string">&quot;XXXX-XXXX&quot;</span>)</span><br><span class="line">        amplitude.eventUploadPeriodSeconds <span class="operator">=</span> <span class="number">120</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">track</span>(<span class="params">event</span>: <span class="type">TrackingEventType</span>) &#123;</span><br><span class="line">        amplitude.logEvent(event.identifier, withEventProperties: event.properties)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">associate</span>(<span class="params">with</span> <span class="params">user</span>: <span class="type">User</span>) &#123;</span><br><span class="line">        amplitude.setUserId(user.id)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> identify <span class="operator">=</span> <span class="type">AMPIdentify</span>()</span><br><span class="line">        identify.set(<span class="string">&quot;name&quot;</span>, value: user.name)</span><br><span class="line">        identify.set(<span class="string">&quot;price&quot;</span>, value: user.price)</span><br><span class="line">        amplitude.identify(identify)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">disassociateUser</span>() &#123;</span><br><span class="line">        amplitude.setUserId(<span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>While the implementation is pretty straight-forward, it’s worth going through each step quickly.</p>
+<ul>
+<li>In the <strong>setup</strong> method, we’re setting up a connection with Amplitude. This usually means that we need to provide some kind of key for the analytics system.</li>
+<li>In <strong>track(event: TrackingEventType)</strong> we take an identifier along with the properties of an event and send it directly to Amplitude.</li>
+<li>In <strong>associate(with user: User)</strong> we set up user-specific variables for correct session logging. Note that you have to call this method right after a user logs in.</li>
+<li><strong>disassociateUser</strong> is a where you must break the link between the current tracking session and the user. You must call it after the user logs out.</li>
+</ul>
+<p>The last class we need is a client, which does two things. It stores all providers and it forwards events to the providers. Let’s have a look at the protocol:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">TrackingClientType</span>: <span class="title class_">TrackingProviderType</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> providers: [<span class="type">TrackingProviderType</span>] &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">add</span>(<span class="params">provider</span>: <span class="type">TrackingProviderType</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>TrackingClientType</strong> inherits from <strong>TrackingProviderType</strong> as it forwards all calls to a bunch of providers. Let’s take a look at how we can implement the client.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TrackingClient</span>: <span class="title class_">TrackingClientType</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> providers <span class="operator">=</span> [<span class="type">TrackingProviderType</span>]()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">add</span>(<span class="params">provider</span>: <span class="type">TrackingProviderType</span>) &#123;</span><br><span class="line">        providers.append(provider)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">track</span>(<span class="params">event</span>: <span class="type">TrackingEventType</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> provider <span class="keyword">in</span> providers &#123;</span><br><span class="line">            provider.track(event: event)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">associate</span>(<span class="params">with</span> <span class="params">user</span>: <span class="type">User</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> provider <span class="keyword">in</span> providers &#123;</span><br><span class="line">            provider.associate(with: user)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">disassociateUser</span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> provider <span class="keyword">in</span> providers &#123;</span><br><span class="line">            provider.disassociateUser()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">setup</span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> provider <span class="keyword">in</span> providers &#123;</span><br><span class="line">            provider.setup()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>As you can see, the client simply stores providers and forwards events to all of them. In the rest of the app you will be working almost exclusively with an instance of a client.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>The best way to deal with our analytics system is to create an instance of <strong>TrackingClient</strong> and feed it with all required providers. A good place to do so is <strong>didFinishLaunchingWithOptions</strong> method. Next, call the <strong>setup()</strong> method to allow providers to set themselves up properly.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">application</span>(<span class="keyword">_</span> <span class="params">application</span>: <span class="type">UIApplication</span>,  <span class="params">didFinishLaunchingWithOptions</span> <span class="params">launchOptions</span>: [<span class="params">UIApplicationLaunchOptionsKey</span> : <span class="keyword">Any</span>]<span class="operator">?</span> <span class="operator">=</span> <span class="literal">nil</span>) -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="type">App</span>.trackingClient <span class="operator">=</span> <span class="type">TrackingClient</span>()</span><br><span class="line">    <span class="type">App</span>.trackingClient.add(provider: <span class="type">AmplitudeProvider</span>())</span><br><span class="line">    <span class="type">App</span>.trackingClient.add(provider: <span class="type">GoogleProvider</span>())</span><br><span class="line">    <span class="type">App</span>.trackingClient.add(provider: <span class="type">FacebookProvider</span>())</span><br><span class="line">    <span class="type">App</span>.trackingClient.setup()</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line"><span class="type">When</span> it’s time to start tracking events, you simply need to pass an event to the tracking client like this:</span><br><span class="line"></span><br><span class="line">``` swift</span><br><span class="line"><span class="keyword">let</span> arsen <span class="operator">=</span> <span class="type">User</span>(id: <span class="string">&quot;1&quot;</span>, name: <span class="string">&quot;Arsen&quot;</span>, age: <span class="number">26</span>)</span><br><span class="line"><span class="type">App</span>.trackingClient.track(event: <span class="type">UserEvents</span>.created(user: arsen))</span><br></pre></td></tr></table></figure>
+
+<p>That’s it — you’re good to go!</p>
+<h2 id="Bonus-—-Testability"><a href="#Bonus-—-Testability" class="headerlink" title="Bonus — Testability"></a>Bonus — Testability</h2><p>You’re probably wondering why we’ve hidden all the classes behind protocols. We did it for a purpose — testability. Since we do not rely on a particular implementation, we can easily create a special implementation of <strong>TrackingClientType</strong>, giving us the ability to test our code.</p>
+<p>Imagine you’re working on a page where users can buy your products and you want to be able to see all purchases made in Google Analytics.</p>
+<p>To make this possible, we will create a dummy provider that will expose all tracked events.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestTrackingClient</span>: <span class="title class_">TrackingClientType</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> providers <span class="operator">=</span> [<span class="type">TrackingProviderType</span>]()</span><br><span class="line">    <span class="keyword">var</span> events <span class="operator">=</span> [<span class="type">TrackingEventType</span>]()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">track</span>(<span class="params">event</span>: <span class="type">TrackingEventType</span>) &#123;</span><br><span class="line">        events.append(event)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>You can now replace a normal client with the dummy one and test away!</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">App</span>.trackingClient <span class="operator">=</span> <span class="type">TestTrackingClient</span>()</span><br><span class="line"><span class="keyword">let</span> productViewController <span class="operator">=</span> <span class="type">ProductViewController</span>(product: product)</span><br><span class="line">productViewController.buy()</span><br><span class="line"><span class="type">App</span>.trackingClient.events[<span class="number">0</span>] <span class="operator">==</span> <span class="type">UserEvents</span>.bought(product: product)</span><br></pre></td></tr></table></figure>
+
+<p>Because <strong>TestTrackingClient</strong> exposes all tracked events via events property, it’s really easy to check what our code tracked.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>By now, you should be able to build your very own extendable, reliable and testable solution for your iOS application. The solution is based on protocol-oriented programming and enums with associated values — feel free to check out the <a target="_blank" rel="noopener" href="https://gist.github.com/frootloops/6418491def7d6ef29667c90a4842a23a">source code</a>.</p>
+<p><em>As always, we welcome your feedback, comments and suggestions.</em></p>
+
+  </div>
+</article>
+
+<!-- LikeBtn.com BEGIN -->
+<span class="likebtn-wrapper" data-identifier="item_1" data-dislike_enabled="false" data-icon_dislike_show="false"></span>
+<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+<!-- LikeBtn.com END -->
+
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Implementation"><span class="toc-number">1.</span> <span class="toc-text">Implementation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Usage"><span class="toc-number">2.</span> <span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus-%E2%80%94-Testability"><span class="toc-number">3.</span> <span class="toc-text">Bonus — Testability</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">4.</span> <span class="toc-text">Conclusion</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&text=How to extract analytics data from your iOS application"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&is_video=false&description=How to extract analytics data from your iOS application"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How to extract analytics data from your iOS application&body=Check out this article: https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&title=How to extract analytics data from your iOS application"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&name=How to extract analytics data from your iOS application&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://arsencodes.com/how-to-extract-analytics-data-from-your-ios-application/&t=How to extract analytics data from your iOS application"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    Arsen Gasparian
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

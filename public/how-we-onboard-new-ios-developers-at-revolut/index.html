@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Onboarding can be daunting, especially in a team of 94 iOS developers. When I joined Revolut in March 2017, there were no onboarding. I got started by doing bug fixes. A lot of bug fixes. It was fine,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How we onboard new iOS developers at Revolut">
+<meta property="og:url" content="https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/index.html">
+<meta property="og:site_name" content="Swift by Arsen">
+<meta property="og:description" content="Onboarding can be daunting, especially in a team of 94 iOS developers. When I joined Revolut in March 2017, there were no onboarding. I got started by doing bug fixes. A lot of bug fixes. It was fine,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-12T18:55:04.000Z">
+<meta property="article:modified_time" content="2022-07-12T18:57:49.130Z">
+<meta property="article:author" content="Arsen Gasparian">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>How we onboard new iOS developers at Revolut</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/monitoring-performance-of-screens-in-your-ios-app/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&text=How we onboard new iOS developers at Revolut"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&is_video=false&description=How we onboard new iOS developers at Revolut"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How we onboard new iOS developers at Revolut&body=Check out this article: https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&name=How we onboard new iOS developers at Revolut&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&t=How we onboard new iOS developers at Revolut"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Safety-and-reduced-mental-pressure"><span class="toc-number">1.</span> <span class="toc-text">Safety and reduced mental pressure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#More-effective-learning"><span class="toc-number">2.</span> <span class="toc-text">More effective learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wider-understanding"><span class="toc-number">3.</span> <span class="toc-text">Wider understanding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Better-scalability"><span class="toc-number">4.</span> <span class="toc-text">Better scalability</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#General-discussion"><span class="toc-number">5.</span> <span class="toc-text">General discussion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-module"><span class="toc-number">6.</span> <span class="toc-text">Create module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-view"><span class="toc-number">7.</span> <span class="toc-text">Create view</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-repository"><span class="toc-number">8.</span> <span class="toc-text">Create repository</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-screen"><span class="toc-number">9.</span> <span class="toc-text">Create screen</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-flow"><span class="toc-number">10.</span> <span class="toc-text">Create flow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Postmortem"><span class="toc-number">11.</span> <span class="toc-text">Postmortem</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        How we onboard new iOS developers at Revolut
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Arsen Gasparian</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-07-12T18:55:04.000Z" itemprop="datePublished">2022-07-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Onboarding can be daunting, especially in a team of 94 iOS developers. When I joined Revolut in March 2017, there were no onboarding. I got started by doing bug fixes. A lot of bug fixes. It was fine, especially for a small company. But what works for couple of iOS developer doesn’t work for nearly one hundred of developers.</p>
+<p>Mainly because as an iOS developer at Revolut you mostly work on 4 main areas: view models, repositories, views and flows. And this approach with bug fixes doesn’t work well because first at all you can’t guarantee that a new joiner will get bugs that are evenly distributed across all these 4 areas. Secondly when you’re fixing bugs in an area it doesn’t necessary translates into a skill of creating a new object within this area since you don’t see the big picture. Thirdly bugs are uniq and usually either complicated or trivial. Trivial bugs don’t teach you much and complicated bugs require a lot of expertise so it translates into a lot of supervision thus making this approach not scalable.</p>
+<p>When I was talking about this problem to my colleague and he told me that some companies prepare a dummy project for new comers so they can be better prepared. I loved this idea and since at the time my team was getting a new iOS developer and I decided that it was a perfect opportunity to test it out.</p>
+<p>But before we go into details I wanted to discuss why I thought it was beneficial to setup a dummy project like this.</p>
+<h2 id="Safety-and-reduced-mental-pressure"><a href="#Safety-and-reduced-mental-pressure" class="headerlink" title="Safety and reduced mental pressure"></a>Safety and reduced mental pressure</h2><p>Since we’re not going to release this code to actual users we don’t risk shipping buggy code. Also it reduces mental pressure on new developers since they know they can make mistakes and it will not affect KPIs or other team members.</p>
+<h2 id="More-effective-learning"><a href="#More-effective-learning" class="headerlink" title="More effective learning"></a>More effective learning</h2><p>When I designed the dummy project and I knew what I wanted to teach new developers. So the whole thing is designed around this goal. So if you do something you do it to master a specific skill. In contrast to bug fixes when you can’t control what exactly you need to do so you might waste a lot of time doing things that teach you nothing.</p>
+<h2 id="Wider-understanding"><a href="#Wider-understanding" class="headerlink" title="Wider understanding"></a>Wider understanding</h2><p>During onboarding you’ll work on all 4 major areas so by end of the course a new joiner gets a solid foundation. They understand what goes where and they get the big picture. Again in contrast to bug fixes where you can’t guarantee that a new joiner will get tasks in all major areas.</p>
+<h2 id="Better-scalability"><a href="#Better-scalability" class="headerlink" title="Better scalability"></a>Better scalability</h2><p>Since existing developers help new joiners to perform onboarding it’s much easier to describe the one much more predictable process rather than chaotic process of bug fixes. Moreover since we’ve been using this approach for long time, existing developers help new joiner with onboarding while they had exactly the same onboarding experience so they’re on the same page with new joiners.</p>
+<p>Now I want to talk more about the onboarding itself. The onboarding itself is a JIRA story that has 7 tasks in it. And every time we need to start onboarding for a new iOS developer we make a copy of the story and assign it a new joiner. But before we start looking into these 7 tasks let’s talk about a buddy. Because in my opinion a buddy is the most important ingredient of a successful onboarding. So once you join Revolut we assign a buddy to you. Your buddy is usually a more experienced iOS developer from your team. And he&#x2F;she will be there to help you learn. Now let’s talk about the tasks that we have.</p>
+<h2 id="General-discussion"><a href="#General-discussion" class="headerlink" title="General discussion"></a>General discussion</h2><p>The first task is all about talking to your buddy. Here your buddy will give your a bird’s eye view of the whole thing. Including general structure of the app, tooling, git practices, unit testing, view models, repositories, ui testing, CI pipeline, localisation, feature toggles and more. We don’t expect people to grasp all of this but we want to touch as many areas as possible to give you sense of scale.</p>
+<h2 id="Create-module"><a href="#Create-module" class="headerlink" title="Create module"></a>Create module</h2><p>Here we start by creating a brand new module and we use this module to keep all the code that a new joiner is going to write. Since our codebase is highly modularised this step is necessary to tech people how to create new modules and how to integrate them into the main application.</p>
+<h2 id="Create-view"><a href="#Create-view" class="headerlink" title="Create view"></a>Create view</h2><p>In this task you need to create a reusable view by using our design system. Here the view itself is trivial. It consists of a label and a segment control. The view itself is trivial because we want to focus on everything else, mainly structuring code, using parts of design system and writing snapshot tests.</p>
+<h2 id="Create-repository"><a href="#Create-repository" class="headerlink" title="Create repository"></a>Create repository</h2><p>Here we learn the repository pattern. In our case we pretend that we have two endpoint and we need to create a repository with persistence layer. One endpoint is giving you a lottery with bunch of numbers to select from and the second one is used to submit your lucky number. Here the main focus is again around structuring code and unit testing.</p>
+<h2 id="Create-screen"><a href="#Create-screen" class="headerlink" title="Create screen"></a>Create screen</h2><p>Here we combine your work from two previous tasks. You create a screen that should give you ability to pick your lucky number and submit it. So you use the repository to obtain all available numbers than you create UI of the view you created. Once you click a button you submit the selected ticket by using the repository. Here again the main focus is structuring code and writing unit tests.</p>
+<h2 id="Create-flow"><a href="#Create-flow" class="headerlink" title="Create flow"></a>Create flow</h2><p>The last and the most challenging task is to create a flow which should present the screen you created previously and then show success screen (which we provide) after you submitted your choose. Again we focus mainly on structuring code and unit testing.</p>
+<h2 id="Postmortem"><a href="#Postmortem" class="headerlink" title="Postmortem"></a>Postmortem</h2><p>This is my favourite. Here a new joiner get a chance to help other new joiners by providing helpful feedback about the onboarding. Because of this step our onboarding is always up to date and we get helpful insights from new joiner’s perspective. But also we get a lot of kind words 💌</p>
+<p>As you can see the main theme of this project is trivial objective, compound nature of work and focusing on structuring and testing of the code. You can imagine that we want people to be able to easily understand code of other developers and the onboarding process helps a lot. And these 66 iOS developers that have gone through this process can definitely say it helped a lot.</p>
+<p>Worth noting that a new joiner doesn’t take any real production tasks until they complete the onboarding tasks and it usually takes between 1 and 2 weeks for a developer to finish this process.</p>
+
+  </div>
+</article>
+
+<!-- LikeBtn.com BEGIN -->
+<span class="likebtn-wrapper" data-identifier="item_1" data-dislike_enabled="false" data-icon_dislike_show="false"></span>
+<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+<!-- LikeBtn.com END -->
+
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Safety-and-reduced-mental-pressure"><span class="toc-number">1.</span> <span class="toc-text">Safety and reduced mental pressure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#More-effective-learning"><span class="toc-number">2.</span> <span class="toc-text">More effective learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wider-understanding"><span class="toc-number">3.</span> <span class="toc-text">Wider understanding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Better-scalability"><span class="toc-number">4.</span> <span class="toc-text">Better scalability</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#General-discussion"><span class="toc-number">5.</span> <span class="toc-text">General discussion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-module"><span class="toc-number">6.</span> <span class="toc-text">Create module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-view"><span class="toc-number">7.</span> <span class="toc-text">Create view</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-repository"><span class="toc-number">8.</span> <span class="toc-text">Create repository</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-screen"><span class="toc-number">9.</span> <span class="toc-text">Create screen</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-flow"><span class="toc-number">10.</span> <span class="toc-text">Create flow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Postmortem"><span class="toc-number">11.</span> <span class="toc-text">Postmortem</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&text=How we onboard new iOS developers at Revolut"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&is_video=false&description=How we onboard new iOS developers at Revolut"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How we onboard new iOS developers at Revolut&body=Check out this article: https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&title=How we onboard new iOS developers at Revolut"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&name=How we onboard new iOS developers at Revolut&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://arsencodes.com/how-we-onboard-new-ios-developers-at-revolut/&t=How we onboard new iOS developers at Revolut"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    Arsen Gasparian
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

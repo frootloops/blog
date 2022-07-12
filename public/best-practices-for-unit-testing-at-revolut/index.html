@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Testing is important. Unit testing is super important, I’m not questioning that. But sometimes, you write some code and you’d love to cover it with tests, but it feels like it would be so much effort.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Best Practices For Unit Testing at Revolut">
+<meta property="og:url" content="https://arsencodes.com/best-practices-for-unit-testing-at-revolut/index.html">
+<meta property="og:site_name" content="Swift by Arsen">
+<meta property="og:description" content="Testing is important. Unit testing is super important, I’m not questioning that. But sometimes, you write some code and you’d love to cover it with tests, but it feels like it would be so much effort.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://miro.medium.com/max/1400/1*NkaJoUvbW5GIKFV_Fm5KAQ.png">
+<meta property="article:published_time" content="2021-08-31T18:41:41.000Z">
+<meta property="article:modified_time" content="2022-07-12T18:47:26.251Z">
+<meta property="article:author" content="Arsen Gasparian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://miro.medium.com/max/1400/1*NkaJoUvbW5GIKFV_Fm5KAQ.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Best Practices For Unit Testing at Revolut</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/monitoring-performance-of-screens-in-your-ios-app/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/how-to-write-crystal-clear-code/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&text=Best Practices For Unit Testing at Revolut"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&is_video=false&description=Best Practices For Unit Testing at Revolut"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Best Practices For Unit Testing at Revolut&body=Check out this article: https://arsencodes.com/best-practices-for-unit-testing-at-revolut/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&name=Best Practices For Unit Testing at Revolut&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&t=Best Practices For Unit Testing at Revolut"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Sample-Function"><span class="toc-number">1.</span> <span class="toc-text">The Sample Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-MockFunc-Object"><span class="toc-number">2.</span> <span class="toc-text">The MockFunc Object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Builders"><span class="toc-number">3.</span> <span class="toc-text">The Builders</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">4.</span> <span class="toc-text">Conclusion</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Best Practices For Unit Testing at Revolut
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Arsen Gasparian</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-08-31T18:41:41.000Z" itemprop="datePublished">2021-08-31</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Testing is important. Unit testing is super important, I’m not questioning that. But sometimes, you write some code and you’d love to cover it with tests, but it feels like it would be so much effort. So you avoid writing tests, or you write less than you would like to. Sound familiar?</p>
+<p><img src="https://miro.medium.com/max/1400/1*NkaJoUvbW5GIKFV_Fm5KAQ.png"></p>
+<p>I get it, but I also value unit tests and I think writing them should be fun. Otherwise, what’s the point? So at some point I started to analyse why writing unit tests feel like such a chore. I thought finding these showstoppers and streamlining them would make writing unit tests fun again. And make me more productive.</p>
+<p>I did it. And I’m sharing it with you. Here’s the list of best practices I follow to keep writing unit tests easy.</p>
+<h2 id="The-Sample-Function"><a href="#The-Sample-Function" class="headerlink" title="The Sample Function"></a>The Sample Function</h2><p>Imagine you have a function that takes some business model, let’s say PriceAlert and the current price, and if the current price exceeds the target price the function returns true. You don’t care about all other properties of the PriceAlert, you care only about the target price. But here’s the friction point: you want a price alert with a specific target price but you have to fill all other properties.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">PriceAlert</span>: <span class="title class_">Equatable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> symbol: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> targetPrice: <span class="type">MoneyItem</span></span><br><span class="line">    <span class="keyword">let</span> createdAt: <span class="type">Date</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="keyword">let</span> priceAlert <span class="operator">=</span> <span class="type">PriceAlert</span>(</span><br><span class="line">  id: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;42&quot;</span>,</span><br><span class="line">  symbol: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;AAPL&quot;</span>,</span><br><span class="line">  targetPrice: <span class="type">MoneyItem</span> <span class="operator">=</span> <span class="type">MoneyItem</span>(amount: <span class="number">1050</span>, currency: <span class="string">&quot;USD&quot;</span>),</span><br><span class="line">  createdAt: <span class="type">Date</span> <span class="operator">=</span> <span class="type">Date</span>(timeIntervalSince1970: <span class="number">1526202500</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">check(</span><br><span class="line">  priceAlert: priceAlert,</span><br><span class="line">  currectPrice: <span class="type">MoneyItem</span>(amount: <span class="number">123</span>, currency: <span class="string">&quot;USD&quot;</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>To solve that, every business model should be provided with a factory method that can create an instance with no input but, if you want to, you can override some properties. Sound familiar?</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">PriceAlert</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">sample</span>(</span><br><span class="line">        <span class="params">id</span>: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;42&quot;</span>,</span><br><span class="line">        <span class="params">symbol</span>: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;AAPL&quot;</span>,</span><br><span class="line">        <span class="params">targetPrice</span>: <span class="type">MoneyItem</span> <span class="operator">=</span> <span class="type">MoneyItem</span>(amount: <span class="number">1050</span>, currency: <span class="string">&quot;USD&quot;</span>),</span><br><span class="line">        <span class="params">createdAt</span>: <span class="type">Date</span> <span class="operator">=</span> <span class="type">Date</span>(timeIntervalSince1970: <span class="number">1526202500</span>)</span><br><span class="line">    ) -&gt; <span class="type">PriceAlert</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">PriceAlert</span>(</span><br><span class="line">            id: id,</span><br><span class="line">            symbol: symbol,</span><br><span class="line">            targetPrice: targetPrice,</span><br><span class="line">            createdAt: createdAt</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>As you can see, we provide a default value for every property so if you really don’t care, you can just ask for an instance. In most cases, you want to provide one or two specific values and you can do that, too. Also, keep in mind that every sample function is a pure function, so you shouldn’t use any dynamic values like Date().</p>
+<h2 id="The-MockFunc-Object"><a href="#The-MockFunc-Object" class="headerlink" title="The MockFunc Object"></a>The MockFunc Object</h2><p>The second problem I noticed was the mocks. More specifically, the way we used to set them up. Originally, we used a closure-based generator to create mocks. Something like this:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AnimatorSpy</span>: <span class="title class_">Animator</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> invokedAnimate <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">  <span class="keyword">var</span> invokedAnimateCount <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">var</span> invokedAnimateParameters: (duration: <span class="type">TimeInterval</span>, <span class="type">Void</span>)<span class="operator">?</span></span><br><span class="line">  <span class="keyword">var</span> invokedAnimateParametersList <span class="operator">=</span> [(duration: <span class="type">TimeInterval</span>, <span class="type">Void</span>)]()</span><br><span class="line">  <span class="keyword">var</span> shouldInvokeAnimateAnimations <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">  <span class="keyword">var</span> stubbedAnimateCompletionResult: (<span class="type">Bool</span>, <span class="type">Void</span>)<span class="operator">?</span></span><br><span class="line">  <span class="keyword">var</span> stubbedAnimateResult: <span class="type">Bool</span>! <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">func</span> <span class="title function_">animate</span>(<span class="params">duration</span>: <span class="type">TimeInterval</span>, <span class="params">animations</span>: () -&gt; (), <span class="params">completion</span>: (<span class="type">Bool</span>) -&gt; ()) -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    invokedAnimate <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">    invokedAnimateCount <span class="operator">+=</span> <span class="number">1</span></span><br><span class="line">    invokedAnimateParameters <span class="operator">=</span> (duration, ())</span><br><span class="line">    invokedAnimateParametersList.append((duration, ()))</span><br><span class="line">    <span class="keyword">if</span> shouldInvokeAnimateAnimations &#123;</span><br><span class="line">      animations()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> result <span class="operator">=</span> stubbedAnimateCompletionResult &#123;</span><br><span class="line">      completion(result.<span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stubbedAnimateResult</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>But the problem with these mocks was that it was super verbose and it cluttered test files really quickly. So again, friction. To solve that problem, I created a simple object to represent the act of mocking, if you will.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> <span class="title class_">MockFunc</span>&lt;<span class="title class_">Input</span>, <span class="title class_">Output</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> parameters: [<span class="type">Input</span>] <span class="operator">=</span> []</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> result: (<span class="type">Input</span>) -&gt; <span class="type">Output</span> <span class="operator">=</span> &#123; <span class="keyword">_</span> <span class="keyword">in</span> <span class="built_in">fatalError</span>() &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">callAndReturn</span>(<span class="keyword">_</span> <span class="params">input</span>: <span class="type">Input</span>) -&gt; <span class="type">Output</span> &#123;</span><br><span class="line">	parameters.append(input)</span><br><span class="line">        <span class="keyword">return</span> result(input)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">returns</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Output</span>) &#123;</span><br><span class="line">        result <span class="operator">=</span> &#123; <span class="keyword">_</span> <span class="keyword">in</span> value &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>So an actual mock looks like this:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">PriceAlertRepositoryMock</span>: <span class="title class_">PriceAlertRepositoryProtocol</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> cachedPriceAlertsMockFunc <span class="operator">=</span> <span class="type">MockFunc</span>&lt;<span class="type">String</span>?, [<span class="type">PriceAlert</span>]&gt;()</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">cachedPriceAlerts</span>(<span class="params">symbol</span>: <span class="type">String</span>?) -&gt; [<span class="type">PriceAlert</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> cachedPriceAlertsMockFunc.callAndReturn(symbol)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The mock object works very simply. It knows what you put in and what you get out of it. But, of course, it doesn’t know how to actually transform input to output. This is where you come in. In most cases, you just provide output no matter what input is. Like this:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> priceAlertRepository <span class="operator">=</span> <span class="type">PriceAlertRepositoryMock</span>()</span><br><span class="line">priceAlertRepository.cachedPriceAlertsMockFunc.returns([.sample(id: <span class="string">&quot;53&quot;</span>)])</span><br></pre></td></tr></table></figure>
+
+<p>The MockFunc also has quite a few handy shortcuts:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">someMockFunc.succeeds(.sample()) <span class="comment">// if ouput is Result&lt;T&gt;</span></span><br><span class="line">someMockFunc.fails(error) <span class="comment">// if ouput is Result&lt;T&gt;</span></span><br><span class="line">someMockFunc.returnsNil() <span class="comment">// if ouput is T?</span></span><br><span class="line">someMockFunc.returns() <span class="comment">// if ouput is Void</span></span><br><span class="line">expect(someMockFunc).to(beCalled())</span><br></pre></td></tr></table></figure>
+
+<p>The full implementation of the MockFunc can be found <a target="_blank" rel="noopener" href="https://gist.github.com/frootloops/de256f714db0bdbde9499381e5dd83cd">here</a>.</p>
+<h2 id="The-Builders"><a href="#The-Builders" class="headerlink" title="The Builders"></a>The Builders</h2><p>Another problem I noticed was in the first phase of any unit tests — preparation of the main actor. In this case, it’s more about readability but readability still helps you to write unit tests, because you can read existing ones faster. It counts, guys.</p>
+<p>So, we used to prepare everything inside a test case like this:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// preparation</span></span><br><span class="line"><span class="keyword">var</span> priceAlertApiService <span class="operator">=</span> <span class="type">PriceAlertApiServiceMock</span>()</span><br><span class="line"><span class="keyword">var</span> priceAlertStorageService <span class="operator">=</span> <span class="type">PriceAlertStorageServiceMock</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> repository <span class="operator">=</span> <span class="type">PriceAlertRepository</span>(</span><br><span class="line">	network: priceAlertApiService,</span><br><span class="line">	storage: priceAlertStorageService</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// actual test</span></span><br><span class="line">priceAlertStorageService.cachedPriceAlertsMockFunc.returns(</span><br><span class="line">	[.sample(id: <span class="string">&quot;1&quot;</span>), .sample(id: <span class="string">&quot;2&quot;</span>)]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> repository.cachedPriceAlerts(symbol: <span class="string">&quot;AAPL&quot;</span>)</span><br><span class="line">expect(result.map &#123; <span class="variable">$0</span>.id &#125;) <span class="operator">==</span> [<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>This simple example preparation takes the same amount of space as the actual test. Not good! But don’t worry, a builder saves the day:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">Builder</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> priceAlertApiService <span class="operator">=</span> <span class="type">PriceAlertApiServiceMock</span>()</span><br><span class="line">    <span class="keyword">var</span> priceAlertStorageService <span class="operator">=</span> <span class="type">PriceAlertStorageServiceMock</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">makeRepository</span>() -&gt; <span class="type">PriceAlertRepository</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> repository <span class="operator">=</span> <span class="type">PriceAlertRepository</span>(</span><br><span class="line">            network: priceAlertApiService,</span><br><span class="line">            storage: priceAlertStorageService</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">return</span> repository</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>So, now we don’t need to clutter a test case itself and we can focus on the fun part — writing actual unit tests.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// preparation</span></span><br><span class="line"><span class="keyword">let</span> builder <span class="operator">=</span> <span class="type">Builder</span>()</span><br><span class="line"><span class="keyword">let</span> repository <span class="operator">=</span> builder.makeRepository()</span><br><span class="line"></span><br><span class="line"><span class="comment">// actual test</span></span><br><span class="line">builder.priceAlertStorageService.cachedPriceAlertsMockFunc</span><br><span class="line">    .returns([.sample(id: <span class="string">&quot;1&quot;</span>), .sample(id: <span class="string">&quot;2&quot;</span>)])</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> repository.cachedPriceAlerts(symbol: <span class="string">&quot;AAPL&quot;</span>)</span><br><span class="line">expect(result.map &#123; <span class="variable">$0</span>.id &#125;) <span class="operator">==</span> [<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>It helps to reduce the noise. Also it gives you the ability to share a common setup with other test cases. Let’s say we want to setup the repository with some existing cache, you could create a custom makeRepository and simplify the code above to:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> repository <span class="operator">=</span> builder.makeRepository(</span><br><span class="line">	with: [.sample(id: <span class="string">&quot;1&quot;</span>), .sample(id: <span class="string">&quot;2&quot;</span>)]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>If you look at these best practices separately, they may look minor. But if you combine them, they really help us keep test coverage in check and deliver new updates every week with little to no regression. But we’re not done yet. Please share your best practices, I would love to add them to my collection!</p>
+
+  </div>
+</article>
+
+<!-- LikeBtn.com BEGIN -->
+<span class="likebtn-wrapper" data-identifier="item_1" data-dislike_enabled="false" data-icon_dislike_show="false"></span>
+<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+<!-- LikeBtn.com END -->
+
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Sample-Function"><span class="toc-number">1.</span> <span class="toc-text">The Sample Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-MockFunc-Object"><span class="toc-number">2.</span> <span class="toc-text">The MockFunc Object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Builders"><span class="toc-number">3.</span> <span class="toc-text">The Builders</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">4.</span> <span class="toc-text">Conclusion</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&text=Best Practices For Unit Testing at Revolut"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&is_video=false&description=Best Practices For Unit Testing at Revolut"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Best Practices For Unit Testing at Revolut&body=Check out this article: https://arsencodes.com/best-practices-for-unit-testing-at-revolut/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&title=Best Practices For Unit Testing at Revolut"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&name=Best Practices For Unit Testing at Revolut&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://arsencodes.com/best-practices-for-unit-testing-at-revolut/&t=Best Practices For Unit Testing at Revolut"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    Arsen Gasparian
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://linkedin.com/in/arsen-gasparyan-89124681">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/frootloops">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
